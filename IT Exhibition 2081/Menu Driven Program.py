@@ -49,19 +49,19 @@ def mandelbrot():
 
         iterations = [] # List of the result calculations
 
-        for y in py: # For every y in the max amount of y pixels
-            row = [] # List of the result of y coordinate
-            for x in px: # For every x in the max amount of x pixels
-                c = complex(x, y) # Complex number c in the form of x + yi
-                z = 0 # Initial value for the iteration
+        for y in py:                                 # For every y in the max amount of y pixels
+            row = []                                 # List of the result of y coordinate
+            for x in px:                             # For every x in the max amount of x pixels
+                c = complex(x, y)                    # Complex number c in the form of x + yi
+                z = 0                                # Initial value for the iteration
                 for i in range(1, iteration_number): # Runs loop from 1 to the max amount of iterations
-                    if abs(z) >= max_z: # If |z| is greater than 2, it is considered to diverge
-                        row.append(i) # Number of iterations it took to escape(for coloring)
-                        break # Breaks loop because the number has already diverged
+                    if abs(z) >= max_z:              # If |z| is greater than 2, it is considered to diverge
+                        row.append(i)                # Number of iterations it took to escape(for coloring)
+                        break                        # Breaks loop because the number has already diverged
                     else:
-                        z = (z ** power_z) + c # Makes new value of z
+                        z = (z ** power_z) + c       # Makes new value of z
                 else:
-                    row.append(0) # This means the point converges, and so belongs to the fractal.
+                    row.append(0)                    # This means the point converges, and so belongs to the fractal.
 
             iterations.append(row) # Append the row to the final list. This is the list we plot the fractal in!
 
