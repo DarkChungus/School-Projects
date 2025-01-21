@@ -1,3 +1,5 @@
+# Importing all the required libraries
+
 import tkinter as tk
 import matplotlib.pyplot as plt
 import math
@@ -10,11 +12,37 @@ from sympy.plotting import plot3d_parametric_line
 import sys
 import random
 
-def mandelbrot():
-    import numpy as np
-    import matplotlib.pyplot as plt
 
+def mandelbrot():
+    """
+    A mandelbrot set is a fractal that is created by iterating this function:
+    ===============
+    z_n+1 = (z_n)^2 + c,
+    ===============
+    where c is any complex number. If you iterate it, and it starts to diverge, then you can assign a color
+    to the mandelbrot set based on how quickly it diverges. If it does not diverge, and rather starts to
+    converge, then you can color it fully black. This creates very interesting patterns.
+    :return:
+    """
     def render(x_pixels, y_pixels, power_z, iteration_number, colormap):
+        """
+        The actual code on this is based upon the Wikipedia pseudocode.
+
+        :param x_pixels: The range for the np.linspace function for x coordinates.
+                         The more pixels, the better the mandelbrot will look.
+
+        :param y_pixels: The range for the np.linspace function for y coordinates.
+                         The more pixels, the better the mandelbrot will look.
+
+        :param power_z: The power of z. For mandelbrot: enter 2, for some other interesting patterns,
+                        just type anything else.
+
+        :param iteration_number: The number of iterations for the rendering. This is just to check the
+                                 convergence of the set.
+
+        :param colormap: A matplotlib colormap that you can enter.
+        :return:
+        """
         px = np.linspace(-2, 2, x_pixels)
         py = np.linspace(-2, 2, y_pixels)
         max_z = 2
@@ -42,21 +70,37 @@ def mandelbrot():
         plt.colorbar(axis.pcolormesh(px, py, iterations, cmap=colormap))
         plt.xlabel("Real Axis")
         plt.ylabel("Imaginary Axis")
-        plt.show()
+        plt.show() # Plotting the fractal
 
+    # Inputs
     x_pixels = int(input("How many pixels for real axis? "))
     y_pixels = int(input("How many pixels for imaginary axis? "))
     power_z = int(input("What would be the power of z? "))
     iteration_number = int(input("How many iterations for the fractal? "))
     colormap = input("Please write a valid matplotlib colormap for the render: ")
 
+    # Calling the function
     render(x_pixels, y_pixels, power_z, iteration_number, colormap)
 
 
-def primes():
-    import time
-
+def nt_problems():
+    """
+    Some functions on number theory. For more help with the actual functions, please do call the respective
+    functions themselves. The two problems we have here are:
+    --------------------------
+    1. Perfect Number Searcher
+    2. Mersenne Prime Searcher
+    --------------------------
+    :return:
+    """
     def is_prime(num):
+        """
+        This is a very fast way to check if a number is prime, rather than just checking using the Sieve of
+        Eratosthenes. You can just set the upper range to be the square root of the number, since there will
+        be no factors greater than the square root of the number if the number does happen to be a prime.
+        :param num:
+        :return:
+        """
         x = 0
         for i in range(1, int(math.sqrt(num)) + 1):
             if num % i == 0:
@@ -68,21 +112,48 @@ def primes():
             return False
 
     def search_pn(n):
+        """
+        A perfect number is that number that is equal to the sum of it's divisors. An example of a perfect
+        number is:
+
+        =====================
+        6 = 3 + 2 + 1
+        =====================
+
+        The first few perfect numbers are 6, 28, 496, 8128, ...
+        For this, I just implemented a quick way to get all the sums of the factors, by only iterating through
+        the first n/2 terms, because there are no proper factors of a number that is greater than the number
+        divided by 2.
+
+        :param n: The limit for the search of the perfect number.
+        :return:
+        """
         for k in range(2, n):
             x = 0
             for i in range(1, int(k / 2) + 1):
                 if k % i == 0:
                     x += i
 
-            if x == k:
+            if x == k: # If the sum of the divisors is equal to the actual number.
                 print(f'YES! {k} is a perfect number!')
 
     def search_mersenne(n):
+        """
+        A Mersenne Prime is any prime number that can be represented in the way: 2^p-1, where p is also
+        another prime number. Here I just did a typical brute force method to find the Mersenne Primes,
+        although a way faster method would be to implement the Sieve of Eratosthenes.
+
+        :param n: The limit for the search of the Mersenne Prime.
+
+        :return:
+        """
         for i in range(1, n):
             if is_prime(i):
                 possible = (2 ** i - 1)
                 if is_prime(possible):
                     print(f'{i} is a Mersenne prime!')
+
+    # Printing the options
 
     print("1. Perfect Number Searcher")
     time.sleep(.5)
@@ -92,6 +163,8 @@ def primes():
     print()
     time.sleep(.5)
     choose = input("Type out which one you would like to use: ").lower()
+
+    # Conditions
 
     if choose[0] == 'p':
         n = int(input("Enter maximum limit for the Perfect Number Search: "))
@@ -112,14 +185,36 @@ def primes():
     if done:
         sys.exit()
     else:
-        primes()
+        primes() # Recall the program if the user input an invalid option.
 
 
 def calc():
+    """
+    A graphing calculator inspired by Desmos. There are 6 options:
+    ============================================================
+    1. Trigonometric Functions
+    2. Linear Functions
+    3. Quadratic Functions
+    4. Cubic Functions
+    5. Logarithmic Functions
+    6. Plotting in 3 Dimensions
+    ============================================================
+    Choosing any one of these will lead you to another function defined that will give you the necessary
+    inputs to graph the actual thing.
+    :return:
+    """
     def main():
+        """
+        The main function for the graphing calculator. I will explain each and every one of the functions
+        that I have implemented into this code.
+        :return: 
+        """
+        
         x_coord = []
         y_coord = []
         x = symbols('x')
+
+        # Printing the menu
 
         print("---------------GRAPHING CALCULATOR------------------")
         print("---------------Choose your option:------------------")
@@ -185,7 +280,7 @@ def calc():
                 print("Invalid Input! Please try again.")
                 main()
 
-        elif inp[0] == 'l':
+        elif inp[1] == 'i':
             print("---------------LINEAR FUNCTION-------------------")
             print("-------------------ax + b------------------------")
             time.sleep(.5)
@@ -270,8 +365,24 @@ def calc():
 
 
 def maclaurin():
+    """
+    This is a function that will give you three options:
+    --------------------------
+    1. sin(x) 2. cos(x) 3. e^x
+    --------------------------
+    Choose your desired option from here, and the respective functions defined here will graph the visualization
+    of the Maclaurin Series using matplotlib.
 
+    :return:
+    """
     def e_power_x(x, n):
+        """
+        This is just the definition of the exponential function, it's very easy. If you do not understand this,
+        I'd recommend you catch up to this using some article or videos.
+        :param x: The x coordinates, given from -pi to +pi with a difference of 0.05.
+        :param n: The number of iterations for the Taylor Series.
+        :return:
+        """
         taylor_approximation = 0
         for i in range(0, n):
             taylor_approximation += (x ** i) / math.factorial(i)
@@ -279,12 +390,26 @@ def maclaurin():
         return taylor_approximation
 
     def f_sin(x, n):
+        """
+        Definition of the Taylor Series expansion of sin(x). If you took Calculus 2 you could easily understand
+        this code, otherwise I would suggest you to catch up on some articles relating to this matter.
+        :param x: The x coordinates from -pi to +pi, with a difference of 0.05
+        :param n: The number of iterations for the Taylor Series
+        :return:
+        """
         taylor_approximation = 0
         for i in range(1, n):
             taylor_approximation += (-1) ** (i - 1) * (x ** (2 * i - 1) / math.factorial(2 * i - 1))
         return taylor_approximation
 
     def f_cos(x, n):
+        """
+        This is the definition for the Taylor Series expansion of cos(x). If you have taken Calculus 2, you
+        could easily be able to understand this, if not, I recommend you look up some articles explaining it.
+        :param x: The x coordinates, that is given from -pi to +pi with a difference of 0.05 in between.
+        :param n: The number of iterations for the actual expansion
+        :return:
+        """
         taylor_approximation = 0
         for i in range(n):
             taylor_approximation += (-1) ** i * (x ** (2 * i) / math.factorial(2 * i))
@@ -373,7 +498,6 @@ def wpm():
         'very', 'of', 'make', 'work', 'program', 'eye', 'than', 'head', 'hand', 'would', 'give',
         'but', 'day'
     ]
-    user_words = ""
     chosen_words = ""
 
     print("1. 10 Words")
@@ -398,7 +522,7 @@ def wpm():
         time.sleep(1)
         print("GO!")
         start = time.time()
-        user_words = str(input(""))
+        str(input(""))
         end = time.time()
         length = end - start
         wpm = 600 / length
@@ -421,7 +545,7 @@ def wpm():
         time.sleep(1)
         print("GO!")
         start = time.time()
-        user_words = str(input(""))
+        str(input(""))
         end = time.time()
         length = end - start
         wpm = 1800 / length
@@ -444,7 +568,7 @@ def wpm():
         time.sleep(1)
         print("GO!")
         start = time.time()
-        user_words = str(input(""))
+        str(input(""))
         end = time.time()
         length = end - start
         wpm = 3000 / length
@@ -481,7 +605,7 @@ note = tk.Label(window, text = "Note: Please return to the console after pressin
 note.config(font=("Tahoma",10), foreground="green")
 
 button1 = tk.Button(window, command=mandelbrot, activebackground="red", activeforeground="white", cursor="hand2", text="Mandelbrot Render")
-button2 = tk.Button(window, command=primes, activebackground="orange", activeforeground="white", cursor="hand2", text="Prime Programs")
+button2 = tk.Button(window, command=nt_problems, activebackground="orange", activeforeground="white", cursor="hand2", text="Number Theory Programs")
 button3 = tk.Button(window, command=calc, activebackground="green", activeforeground="white", cursor="hand2", text="Graph your equations!")
 button4 = tk.Button(window, command=maclaurin, activebackground="blue", activeforeground="white", cursor="hand2", text="Approximate Function!")
 button5 = tk.Button(window, command=wpm, activebackground="purple", activeforeground="white", cursor="hand2", text="See how fast you can type!")
