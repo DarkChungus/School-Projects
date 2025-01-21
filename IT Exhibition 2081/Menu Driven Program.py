@@ -476,20 +476,20 @@ def maclaurin():
     print("----------------------------------")
     time.sleep(.5)
 
-    taylor_input = input("Choose a function to approximate: ")
+    taylor_input = input("Choose a function to approximate: ") # User can choose any option
 
     if taylor_input[0] == 's':
 
-        iterations = int(input("How many iterations for the Taylor Series? "))
+        iterations = int(input("How many iterations for the Taylor Series? ")) # Asks for the iterations
 
-        x_range = np.arange(-2 * np.pi, 2 * np.pi, 0.05)
-        sine = np.sin(x_range)
+        x_range = np.arange(-2 * np.pi, 2 * np.pi, 0.05) # The set of x coordinates
+        sine = np.sin(x_range) # Calculating the sine function
 
         figure, axes = plt.subplots()
-        axes.plot(x_range, sine, color='black', linewidth=3)
+        axes.plot(x_range, sine, color='black', linewidth=3) # Plotting the sine function
         for i in range(1, iterations + 1):
             taylor_sine = [f_sin(x_coords, i) for x_coords in x_range]
-            axes.plot(x_range, taylor_sine)
+            axes.plot(x_range, taylor_sine) # Plotting the approximation
 
         axes.set_ylim([-3, 3])
         legend = ['sin(x)']
@@ -497,20 +497,20 @@ def maclaurin():
             legend.append(f'Maclaurin/Taylor series of sin(x): {i} iterations')
 
         axes.legend(legend)
-        plt.show()
+        plt.show() # Show the plot
 
     elif taylor_input[0] == 'c':
 
-        iterations = int(input("How many iterations for the Taylor Series? "))
+        iterations = int(input("How many iterations for the Taylor Series? ")) # Asks for the iterations
 
-        x_range = np.arange(-2 * np.pi, 2 * np.pi, 0.05)
-        cosine = np.cos(x_range)
+        x_range = np.arange(-2 * np.pi, 2 * np.pi, 0.05) # The set of x coordinates
+        cosine = np.cos(x_range) # Cosine function
 
         figure, axes = plt.subplots()
-        axes.plot(x_range, cosine, color='black', linewidth=3)
+        axes.plot(x_range, cosine, color='black', linewidth=3) # Plotting the cosine function
         for i in range(1, iterations + 1):
             taylor_cosine = [f_cos(x_coords, i) for x_coords in x_range]
-            axes.plot(x_range, taylor_cosine)
+            axes.plot(x_range, taylor_cosine) # Plotting the approximation
 
         axes.set_ylim([-3, 3])
 
@@ -519,20 +519,20 @@ def maclaurin():
             legend.append(f'Maclaurin/Taylor series of cos(x): {i} iterations')
 
         axes.legend(legend)
-        plt.show()
+        plt.show() # Show the plot
 
     elif taylor_input[0] == 'e':
 
-        iterations = int(input("How many iterations for the Taylor Series? "))
+        iterations = int(input("How many iterations for the Taylor Series? ")) # Asks for the iterations
 
         x_range = np.arange(-2 * np.pi, 2 * np.pi, 0.05)
-        e_x = np.exp(x_range)
+        e_x = np.exp(x_range) # Exponential function
 
         figure, axes = plt.subplots()
-        axes.plot(x_range, e_x, color='black', linewidth=3)
+        axes.plot(x_range, e_x, color='black', linewidth=3) # Plot the exponential function
         for i in range(1, iterations + 1):
             taylor_e = [e_power_x(x_coords, i) for x_coords in x_range]
-            axes.plot(x_range, taylor_e)
+            axes.plot(x_range, taylor_e) # Plot the approximation
 
         axes.set_ylim([-3, 3])
 
@@ -541,11 +541,20 @@ def maclaurin():
             legend.append(f'Maclaurin/Taylor series of e^x: {i} iterations')
 
         axes.legend(legend)
-        plt.show()
+        plt.show() # Show the plot
 
 
 def wpm():
-
+    """
+    This is a quick program that I made, it measures your words per minute. As said, it is a very quick program,
+    so it is really not that accurate. I just used some logic, and it calculates your average wpm, doesn't
+    count accuracy, or your actual speed. It just uses a simple formula that I made up, so your words per
+    minute should be a little higher than the one you see here. It has around 70 common words in the list.
+    =======================
+    INSPIRED BY MONKEYTYPE
+    =======================
+    :return:
+    """
     list = [
         'also', 'during', 'find', 'be', 'on', 'work', 'or', 'school', 'line', 'just', 'number',
         'any', 'become', 'many', 'do', 'as', 'both', 'down', 'hold', 'it', 'he', 'could', 'she',
@@ -563,6 +572,9 @@ def wpm():
     user_input = str(input("Enter which one you want to do: "))
     print()
     if user_input[0] == '1':
+
+        # This gets 10 random words
+
         for i in range(1, 11):
             choice = random.choice(list)
             chosen_words = chosen_words + choice + " "
@@ -581,35 +593,16 @@ def wpm():
         str(input(""))
         end = time.time()
         length = end - start
-        wpm = 600 / length
+        wpm = 600 / length # Calculation
 
-        print(f'You have {wpm} words per minute.')
-
-    elif user_input[0] == '2':
-        for i in range(1, 31):
-            choice = random.choice(list)
-            chosen_words = chosen_words + choice + " "
-
-        print(chosen_words)
-        print("Your input starts in...")
-        time.sleep(.5)
-        print(3)
-        time.sleep(1)
-        print(2)
-        time.sleep(1)
-        print(1)
-        time.sleep(1)
-        print("GO!")
-        start = time.time()
-        str(input(""))
-        end = time.time()
-        length = end - start
-        wpm = 1800 / length
-
+        # Shows your words per minute
         print(f'You have {wpm} words per minute.')
 
     elif user_input[0] == '3':
-        for i in range(1, 51):
+        for i in range(1, 31):
+
+            # This gets 30 random words
+
             choice = random.choice(list)
             chosen_words = chosen_words + choice + " "
 
@@ -627,12 +620,49 @@ def wpm():
         str(input(""))
         end = time.time()
         length = end - start
-        wpm = 3000 / length
+        wpm = 1800 / length # Calculation
 
+        # Shows your words per minute
+        print(f'You have {wpm} words per minute.')
+
+    elif user_input[0] == '5':
+        for i in range(1, 51):
+
+            # This gets 50 random words
+
+            choice = random.choice(list)
+            chosen_words = chosen_words + choice + " "
+
+        print(chosen_words)
+        print("Your input starts in...")
+        time.sleep(.5)
+        print(3)
+        time.sleep(1)
+        print(2)
+        time.sleep(1)
+        print(1)
+        time.sleep(1)
+        print("GO!")
+        start = time.time()
+        str(input(""))
+        end = time.time()
+        length = end - start
+        wpm = 3000 / length # Calculation
+
+        # Shows your words per minute
         print(f'You have {wpm} words per minute.')
 
 
 def center_window(window):
+
+    """
+    This is a way to center the menu in TKinter. I found it on google, and it's really useful. Basically,
+    what it does is it grabs your screen width and height, gets the window width and height, subtracts
+    them, divides by 2 to get the middle point, and that is how you center the window.
+
+    :param window: The window that you are working on(TKinter)
+    :return:
+    """
 
     window.update_idletasks()
     width = window.winfo_width()
@@ -644,9 +674,11 @@ def center_window(window):
     window.geometry(f"{width}x{height}+{x}+{y}")
 
 
-window = tk.Tk()
+window = tk.Tk() # Creating the TKinter window
 
-window.geometry("1000x1000")
+window.geometry("1000x1000") # The width and height of the window
+
+# Making and configuring all the texts
 
 label = tk.Label(window, text = "Some Cool Programs")
 label.config(font=("Tahoma", 50))
@@ -660,11 +692,15 @@ label3.config(font=("Tahoma",20))
 note = tk.Label(window, text = "Note: Please return to the console after pressing the button!")
 note.config(font=("Tahoma",10), foreground="green")
 
+# Creating all the buttons
+
 button1 = tk.Button(window, command=mandelbrot, activebackground="red", activeforeground="white", cursor="hand2", text="Mandelbrot Render")
 button2 = tk.Button(window, command=nt_problems, activebackground="orange", activeforeground="white", cursor="hand2", text="Number Theory Programs")
 button3 = tk.Button(window, command=calc, activebackground="green", activeforeground="white", cursor="hand2", text="Graph your equations!")
 button4 = tk.Button(window, command=maclaurin, activebackground="blue", activeforeground="white", cursor="hand2", text="Approximate Function!")
 button5 = tk.Button(window, command=wpm, activebackground="purple", activeforeground="white", cursor="hand2", text="See how fast you can type!")
+
+# Packing all the widgets
 
 label.pack()
 label2.pack()
@@ -675,6 +711,7 @@ button3.pack(pady=30)
 button4.pack(pady=30)
 button5.pack(pady=30)
 note.pack()
+window.title("IT Exhibition 2081") # Changing the title of the window
 
-center_window(window)
-window.mainloop()
+center_window(window) # Centering the window using the function
+window.mainloop() # Making the window run
