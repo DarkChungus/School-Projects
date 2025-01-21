@@ -43,31 +43,31 @@ def mandelbrot():
         :param colormap: A matplotlib colormap that you can enter.
         :return:
         """
-        px = np.linspace(-2, 2, x_pixels)
-        py = np.linspace(-2, 2, y_pixels)
-        max_z = 2
+        px = np.linspace(-2, 2, x_pixels) # X axis
+        py = np.linspace(-2, 2, y_pixels) # Y axis
+        max_z = 2 # Check if the value is greater than this
 
-        iterations = []
+        iterations = [] # List of the result calculations
 
-        for y in py:
-            row = []
-            for x in px:
-                c = complex(x, y)
-                z = 0
-                for i in range(1, iteration_number):
-                    if abs(z) >= max_z:
-                        row.append(i)
-                        break
+        for y in py: # For every y in the max amount of y pixels
+            row = [] # List of the result of y coordinate
+            for x in px: # For every x in the max amount of x pixels
+                c = complex(x, y) # Complex number c in the form of x + yi
+                z = 0 # Initial value for the iteration
+                for i in range(1, iteration_number): # Runs loop from 1 to the max amount of iterations
+                    if abs(z) >= max_z: # If |z| is greater than 2, it is considered to diverge
+                        row.append(i) # Number of iterations it took to escape(for coloring)
+                        break # Breaks loop because the number has already diverged
                     else:
-                        z = (z ** power_z) + c
+                        z = (z ** power_z) + c # Makes new value of z
                 else:
-                    row.append(0)
+                    row.append(0) # This means the point converges, and so belongs to the fractal.
 
-            iterations.append(row)
+            iterations.append(row) # Append the row to the final list. This is the list we plot the fractal in!
 
         axis = plt.axes()
         axis.set_aspect('equal')
-        plt.colorbar(axis.pcolormesh(px, py, iterations, cmap=colormap))
+        plt.colorbar(axis.pcolormesh(px, py, iterations, cmap=colormap)) # Colormap
         plt.xlabel("Real Axis")
         plt.ylabel("Imaginary Axis")
         plt.show() # Plotting the fractal
@@ -102,7 +102,7 @@ def nt_problems():
         :return:
         """
         x = 0
-        for i in range(1, int(math.sqrt(num)) + 1):
+        for i in range(1, int(math.sqrt(num)) + 1): # Fast method to check if a number is prime
             if num % i == 0:
                 x += 1
 
@@ -129,10 +129,10 @@ def nt_problems():
         :return:
         """
         for k in range(2, n):
-            x = 0
-            for i in range(1, int(k / 2) + 1):
-                if k % i == 0:
-                    x += i
+            x = 0 # Sum of the factors
+            for i in range(1, int(k / 2) + 1): # Go through the factors of k
+                if k % i == 0: # Is i a factor of k?
+                    x += i # Get the sum of the factor
 
             if x == k: # If the sum of the divisors is equal to the actual number.
                 print(f'YES! {k} is a perfect number!')
@@ -148,9 +148,9 @@ def nt_problems():
         :return:
         """
         for i in range(1, n):
-            if is_prime(i):
-                possible = (2 ** i - 1)
-                if is_prime(possible):
+            if is_prime(i): # Is the number prime?
+                possible = (2 ** i - 1) # The form of a Mersenne Prime
+                if is_prime(possible): # Is the number we formed a Mersenne Prime?
                     print(f'{i} is a Mersenne prime!')
 
     # Printing the options
@@ -167,14 +167,17 @@ def nt_problems():
     # Conditions
 
     if choose[0] == 'p':
+        # Taking the required input
         n = int(input("Enter maximum limit for the Perfect Number Search: "))
         search_pn(n)
         done = True
     elif choose[0] == 'm':
+        # Taking the required input
         n = int(input("Enter maximum limit for the Mersenne Prime Search: "))
         search_mersenne(n)
         done = True
     else:
+        # Invalid input case(reloads the program)
         print("Sorry! You have an invalid input.")
         time.sleep(1)
         print("Program reloading...")
@@ -183,7 +186,7 @@ def nt_problems():
         done = False
 
     if done:
-        sys.exit()
+        sys.exit() # Closes the program
     else:
         primes() # Recall the program if the user input an invalid option.
 
@@ -205,11 +208,44 @@ def calc():
     """
     def main():
         """
-        The main function for the graphing calculator. I will explain each and every one of the functions
-        that I have implemented into this code.
-        :return: 
+        The main function for the graphing calculator. I will explain each one of the functions that I have
+        implemented into this code.
+        ============================
+        1. Trigonometric Functions:
+            Uses scipy library for the normal trigonometric functions, but I used matplotlib to graph the
+            hyperbolic functions as when I was first doing the code, I just messed around with matplotlib
+            a bit. With matplotlib and numpy, I made an array of coordinates using np.arange and I plotted
+            each one of those coordinates, and it's respective output. For sympy there is just a simple
+            syntax to actually print out the graph.
+        ============================
+        2. Linear Functions:
+            Uses sympy to plot the straight line. Here I just made the user input the values of the constants
+            in the function of the straight line, then used some simple sympy syntax to graph the line.
+        ============================
+        3. Quadratic Functions:
+            Uses sympy to plot the parabola. I got the user to input the coefficients in the function and
+            the constant. I then used some simple sympy syntax to print out the parabola's graph.
+        ============================
+        4. Cubic Functions:
+            Uses sympy to plot the cubic graph. This part gets input from the user, asking for the coefficients
+            of the cubic function, then puts them all together using some sympy plot() syntax, and then it will
+            print out the graph.
+        ============================
+        5. Logarithmic Functions:
+            There are two options for this:
+            a) log_n(x):
+                Asks the user for a base 'n', and will show the logarithmic graph using sympy.
+            b) ln(x):
+                Shows the natural logarithm graph using sympy.
+        ============================
+        6. 3 Dimensional Plotting
+            Uses the library sympy to ask the user for some 3D Plotting choices, and it will plot the
+            actual 3D graph. This one can't really be customized, as I did not want to go through the
+            trouble of making a customized 3D Plotter.
+        ============================
+        :return:
         """
-        
+
         x_coord = []
         y_coord = []
         x = symbols('x')
@@ -234,49 +270,57 @@ def calc():
         time.sleep(.5)
         inp = input("Type out your choice: ").lower()
         if inp[0] == 't':
+            # Options
             print("__________________TRIGONOMETRY_______________________")
             print("|1. sinh(x)|2. cosh(x)|3. tanh(x)|")
             print("|4. sin(x) |5. cos(x) | 6. tan(x)|")
             print("----------------------------------------------------")
             print("----------------------------------")
-            trig_pick = int(input("Pick any from 1-6: "))
+            trig_pick = int(input("Pick any from 1-6: ")) # Take user input
             if trig_pick == 1:
+                # Generate the coordinates
                 for i in np.arange(-5, 5, 0.5):
                     n = i
-                    y_coord.append(math.sinh(n))
+                    y_coord.append(math.sinh(n)) # Y coordinate value calculation
                     x_coord.append(i)
 
-                plt.plot(x_coord, y_coord)
-                plt.show()
+                plt.plot(x_coord, y_coord) # Plot the coordinates
+                plt.show() # Show the plot
             elif trig_pick == 2:
+                # Generate the coordinates
                 for i in np.arange(-5, 5, 0.5):
                     n = i
-                    y_coord.append(math.cosh(n))
+                    y_coord.append(math.cosh(n)) # Y coordinate value calculation
                     x_coord.append(i)
 
-                plt.plot(x_coord, y_coord)
-                plt.show()
+                plt.plot(x_coord, y_coord) # Plot the coordinates
+                plt.show() # Show the plot
             elif trig_pick == 3:
+                # Generate the coordinates
                 for i in np.arange(-5, 5, 0.5):
                     n = i
-                    y_coord.append(math.tanh(n))
+                    y_coord.append(math.tanh(n)) # Y coordinate value calculation
                     x_coord.append(i)
 
-                plt.plot(x_coord, y_coord)
-                plt.show()
+                plt.plot(x_coord, y_coord) # Plot the coordinates
+                plt.show() # Show the plot
             elif trig_pick == 4:
 
                 plot(sin(x), (x, -7.5, 7.5), ylim=(-1.5, 1.5), xlabel="x", ylabel="y")
+                # Plot the sin(x) graph
 
             elif trig_pick == 5:
 
                 plot(cos(x), (x, -7.5, 7.5), ylim=(-1.5, 1.5), xlabel="x", ylabel="y")
+                # Plot the cos(x) graph
 
             elif trig_pick == 6:
 
                 plot(tan(x), (x, -10, 10), ylim=(-20, 20), xlabel="x", ylabel="y")
+                #Plot the tan(x) graph
 
             else:
+                # Invalid input case
                 print("Invalid Input! Please try again.")
                 main()
 
@@ -284,24 +328,29 @@ def calc():
             print("---------------LINEAR FUNCTION-------------------")
             print("-------------------ax + b------------------------")
             time.sleep(.5)
+            # Input the coefficients
             linear_a = int(input("a: "))
             linear_b = int(input("b: "))
             print("-------------------------------------------------")
             plot((linear_a * x + linear_b), (x, -10, 10), ylim=(-10, 10), xlabel="x", ylabel="y")
+            #           ^ This part will combine the coefficients to give a function in the form ax + b.
         elif inp[0] == 'q':
             print("--------------QUADRATIC FUNCTION-----------------")
             print("----------------ax^2 + bx + c--------------------")
             time.sleep(.5)
+            # Input the coefficients
             quad_a = int(input("a: "))
             quad_b = int(input("b: "))
             quad_c = int(input("c: "))
             print("-------------------------------------------------")
             plot((quad_a * x ** 2 + quad_b * x + quad_c), (x, -10, 10), ylim=(-10, 10), xlabel="x", ylabel="y")
-
+            #           ^ This part will combine the coefficients to give a function in the form ax^2 + bx
+            #             + c.
         elif inp[0] == 'c':
             print("---------------------CUBIC FUNCTION--------------------")
             print("-----------------ax^3 + bx^2 + cx + d------------------")
             time.sleep(.5)
+            # Input the coefficients
             cubic_a = int(input("a: "))
             cubic_b = int(input("b: "))
             cubic_c = int(input("c: "))
@@ -309,6 +358,8 @@ def calc():
             print("-------------------------------------------------------")
             plot((cubic_a * x ** 3 + cubic_b * x ** 2 + cubic_c * x + cubic_d), (x, -10, 10), ylim=(-10, 10),
                  xlabel="x", ylabel="y")
+            # The above part will combine the coefficients to give a function in the form of ax^3 + bx^3 +
+            # cx + d.
         elif inp[1] == 'o':
             global log_eqn
             print("-----------------LOGARITHM FUNCTIONS--------------------")
@@ -320,20 +371,23 @@ def calc():
             time.sleep(.2)
             ln_log = input("Choose 1 or 2: ")
             if ln_log[0] == 'n':
-                log_eqn = ln(x)
+                log_eqn = ln(x) # The equation for the logarithm
             elif ln_log[0] == 'l':
                 base = int(input("Logarithm Base(a): "))
-                log_eqn = log(x, base)
+                log_eqn = log(x, base) # The equation for the logarithm
             else:
+                # Invalid input case
                 print("Invalid Input! Please try again.")
                 main()
 
             plot(log_eqn, (x, -10, 10), ylim=(-10, 10), xlabel="x", ylabel="y")
+            # Plotting the actual logarithm.
 
         elif inp[0] == '3':
             print("---------------3 DIMENSIONAL PLOTTING------------------")
             time.sleep(.5)
             print("-------------------------------------------------------")
+            # Options for the 3D Plotting
             print("1. z = x*y")
             print("2. z = x/y")
             print("3. z = cos(x), z = sin(x), z = x")
@@ -343,25 +397,27 @@ def calc():
 
             input3d = int(input("Choose from 1-5: "))
             if input3d == 1:
-                plot3d((u * v, (u, -5, 5), (v, -5, 5)))
+                plot3d((u * v, (u, -5, 5), (v, -5, 5))) # Plot the first function
             elif input3d == 2:
-                plot3d((u / v, (u, -5, 5), (v, -5, 5)))
+                plot3d((u / v, (u, -5, 5), (v, -5, 5)))# Plot the second function
             elif input3d == 3:
                 plot3d_parametric_line((cos(u), sin(u), u, (u, -5, 5)),
-                                       (sin(u), u ** 2, u, (u, -5, 5)))
+                                       (sin(u), u ** 2, u, (u, -5, 5))) # Plot the third function
             elif input3d == 4:
                 plot3d_parametric_surface(cos(u + v), sin(u - v), u - v,
-                                          (u, -5, 5), (v, -5, 5))
+                                          (u, -5, 5), (v, -5, 5)) # Plot the fourth function
             elif input3d == 5:
-                plot3d((u ** 2 + v ** 2, (u, -5, 5), (v, -5, 5)))
+                plot3d((u ** 2 + v ** 2, (u, -5, 5), (v, -5, 5))) # Plot the fifth function
             else:
+                # Invalid input case
                 print("Invalid Input! Please try again.")
                 main()
         else:
+            # Invalid input case
             print("Invalid Input! Please try again.")
             main()
 
-    main()
+    main() # Call the graphing calculator
 
 
 def maclaurin():
