@@ -656,7 +656,7 @@ def wpm():
 def center_window(window):
 
     """
-    This is a way to center the menu in TKinter. I found it on google, and it's really useful. Basically,
+    This is a way to center the menu in TKinter. I found it on stackoverflow, and it's really useful. Basically,
     what it does is it grabs your screen width and height, gets the window width and height, subtracts
     them, divides by 2 to get the middle point, and that is how you center the window.
 
