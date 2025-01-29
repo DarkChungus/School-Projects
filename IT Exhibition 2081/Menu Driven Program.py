@@ -182,13 +182,13 @@ def nt_problems():
         time.sleep(1)
         print("Program reloading...")
         time.sleep(.5)
-        primes()
+        nt_problems()
         done = False
 
     if done:
         sys.exit() # Closes the program
     else:
-        primes() # Recall the program if the user input an invalid option.
+        nt_problems() # Recall the program if the user input an invalid option.
 
 
 def calc():
