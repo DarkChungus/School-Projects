@@ -132,16 +132,63 @@ void InsertionSort(){
     }
 }
 
-/**void QUICKSORT(){
+void QuickSort(){
     static int stack[nobar];
     static int top = -1;
-    static bool intialized = false;
-    
+    static bool initialized = false;
+
     if(!initialized){
-        stack[++top]
+        stack[++top] = 0;
+        stack[++top] = nobar-1;
+        initialized = true;
     }
-    
-}**/
+
+    if(top>=0){
+        int end = stack[top--];
+        int start = stack[top--];
+        int pivot = bar[end].height;
+        int i = start -1;
+
+        bar[end].color = BLUE;
+        DrawBars();
+
+        for(int j = start; j<end;j++){
+            bar[j].color = RED;
+            DrawBars();
+
+            if(bar[j].height<pivot){
+                i++;
+
+                int temp = bar[i].height;
+                bar[i].height = bar[j].height;
+                bar[j].height = temp;
+            }
+            bar[j].color = WHITE;
+            DrawBars();
+        }
+
+        int temp = bar[i+1].height;
+        bar[i+1].height = bar[end].height;
+        bar[end].height = temp;
+
+        bar[end].color = WHITE;
+        DrawBars();
+        int pivotIndex = i+1;
+        if(pivotIndex - 1>start){
+            stack[++top] = start;
+            stack[++top] = pivotIndex-1;
+
+        }
+        if(pivotIndex + 1<end){
+            stack[++top]= pivotIndex + 1;
+            stack[++top] = end;
+        }
+    }
+    else{
+        SigmaGreenBars();
+        DrawBars();
+    }
+}
 
 //this
 typedef enum {None, Bubble, Selection, Insertion, Quick, Exit} SAlgorithm;
