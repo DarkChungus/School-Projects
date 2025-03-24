@@ -1,1 +1,1 @@
-got glazed by the judges so hard
+Didn't get anything this year.
