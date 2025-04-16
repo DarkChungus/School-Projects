@@ -1,1 +1,1 @@
- Didn't get anything this year. Just a lame certificate of participation.
+UPDATE: Disgusting. What did I get for my brilliance in projects this year? A certificate of participation. Watching everyone else get their awards was painful. Waiting to hear my own name was painful. This school sucks. Apart from one, all of the judges were pure garbage, I hope they never get to judge again.
